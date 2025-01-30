@@ -3,12 +3,12 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = { 
     name: ["music", "lyric"],
-    description: "Display lyrics of a song.",
+    description: "Saca tus dotes de cantautor, yo te doy la letra",
     category: "Music",
     options: [
         {
             name: "song",
-            description: "The song you want to find lyrics for",
+            description: "Que cancion te busco la letra?",
             type: ApplicationCommandOptionType.String,
             required: false,
         }
@@ -16,12 +16,15 @@ module.exports = {
     run: async (client, interaction) => {
         await interaction.deferReply({ ephemeral: false });
 
-        const song = interaction.options.getString("song");
+        let song = interaction.options.getString("song");
 
         const queue = client.distube.getQueue(interaction);
-        if (!queue) return interaction.editReply(`There is nothing in the queue right now!`);
+        if (!queue) return interaction.editReply(`[🦙] No hay na en la cola`);
+
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) {
+            return interaction.editReply("Teni que estar en el mismo canal de vo");
+        }
 
         let csong = queue.songs[0];
         if (!song && csong) song = csong.name;
@@ -30,29 +33,33 @@ module.exports = {
 
         try {
             lyrics = await lyricsfinder(song, "");
-            if (!lyrics) return interaction.editReply("Couldn't find any lyrics for that song!");
+            if (!lyrics) {
+                return interaction.editReply("[🦙] Me vas a disculpar pero yo no encontré ninguna letra de sa canción");
+            }
         } catch (err) {
             console.log(err);
-            interaction.editReply("Couldn't find any lyrics for that song!");
+            return interaction.editReply("[🦙] Me vas a disculpar pero yo no encontré ninguna letra de sa canción");
         }
+
         let lyricsEmbed = new EmbedBuilder()
             .setColor(client.color)
             .setTitle(`Lyrics`)
             .setDescription(`**${song}**\n${lyrics}`)
-            .setFooter({ text: `Requested by ${interaction.author.username}`})
+            .setFooter({ text: `Requested by ${interaction.user.username}` })
             .setTimestamp();
 
         if (lyrics.length > 2048) {
-            lyricsEmbed.setDescription("Lyrics too long to display!");
+            lyricsEmbed.setDescription("[🦙] Joaa y esa vaina que? documental, no me alcanza el mensaje");
         }
 
-        interaction.editReply({ embeds: [lyricsEmbed] }).then(n => {
-            var total = queue.songs[0].duration * 1000;
-            var current = queue.currentTime * 1000;
-            let time = total - current;
-            setTimeout(() => { 
-                msg.delete(); 
-            }, time);
-        });
+        const msg = await interaction.editReply({ embeds: [lyricsEmbed] });
+
+        var total = queue.songs[0].duration * 1000;
+        var current = queue.currentTime * 1000;
+        let time = total - current;
+
+        setTimeout(() => { 
+            msg.delete().catch(console.error); 
+        }, time);
     }
 };

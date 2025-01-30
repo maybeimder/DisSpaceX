@@ -12,8 +12,8 @@ module.exports = async (client, queue, song) => {
     const msg = await queue.textChannel.messages.cache.get(data.message_id);
 
     const embed = new EmbedBuilder()
-        .setDescription(`**Queued • [${song.name || "Anonymous"}](${song.url || "https://www.github.com/Adivise"})** \`${song.formattedDuration}\` • ${song.user}`)
-        .setColor('#000001')
+        .setDescription(`**Agregá a la cola • [${song.name || "Anonymous"}](${song.url || ""})** \`${song.formattedDuration}\` • ${song.user}`)
+        .setColor('#9659c0')
 
     await msg.edit({ content: " ", embeds: [embed] })
 }

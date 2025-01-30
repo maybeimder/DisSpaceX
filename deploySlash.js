@@ -31,6 +31,7 @@ const { ApplicationCommandOptionType, REST, Routes, ApplicationCommandManager } 
     console.log("Reading interaction files..")
 
     let interactionFilePaths = await readdirRecursive(interactionsFolder);
+    
     interactionFilePaths = interactionFilePaths.filter(i => {
       let state = path.basename(i).startsWith("-");
       return !state;

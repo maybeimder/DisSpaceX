@@ -10,8 +10,8 @@ module.exports = async (client, queue) => {
         await client.UpdateMusic(queue);
         
         const embed = new EmbedBuilder()
-            .setDescription(`\`📛\` | **Song has been:** \`Ended\``)
-            .setColor('#000001')
+            .setDescription(`\`📛\` | **Ya se ** \`acabó la cola\``)
+            .setColor('#9659c0')
 
         queue.textChannel.send({ embeds: [embed] })
     } else if (db.voice_enable === false) {
@@ -19,8 +19,8 @@ module.exports = async (client, queue) => {
         await client.distube.voices.leave(queue.textChannel.guild);
     
         const embed = new EmbedBuilder()
-            .setDescription(`\`📛\` | **Song has been:** \`Ended\``)
-            .setColor('#000001')
+            .setDescription(`\`📛\` | **Se ha ** \`acabado la cola\``)
+            .setColor('#9659c0')
     
         queue.textChannel.send({ embeds: [embed] })
     }

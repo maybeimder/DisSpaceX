@@ -8,9 +8,7 @@ module.exports = async (client) => {
     let channels = client.channels.cache.size;
 
     const activities = [
-        `/help | ${guilds} servers`,
-        `/play <search> | ${users} users`,
-        `/filter custom <args> | ${channels} channels`,
+        `NostalgIA - FlowGPT`,
     ];
 
     setInterval(() => {

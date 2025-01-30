@@ -2,12 +2,12 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
     name: ["music", "seek"],
-    description: "Seek timestamp in the song!",
+    description: "Busca un segundo en especifico de alguna cancion",
     category: "Music",
     options: [
         {
             name: "seconds",
-            description: "The number of seconds to seek the timestamp by.",
+            description: "Cuantos seg pue",
             type: ApplicationCommandOptionType.Integer,
             required: true,
         }
@@ -18,16 +18,16 @@ module.exports = {
         const value = interaction.options.getInteger("seconds");
         
         const queue = client.distube.getQueue(interaction);
-        if (!queue) return interaction.editReply(`There is nothing in the queue right now!`);
+        if (!queue) return interaction.editReply(`[🦙] No hay na en la cola`);
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("Teni que estar en el mismo canal de vo")
 
-        if(value >= queue.songs[0].duration || value < 0) return interaction.editReply(`Cannot seek beyond length of song.`);
+        if(value >= queue.songs[0].duration || value < 0) return interaction.editReply(`No puede ser mas largo que lo que dura la cancion pue, respete`);
 
         await queue.seek(value);
 
         const embed = new EmbedBuilder()
-            .setDescription(`\`⏭\` | *Seeked to:* \`${value}\``)
+            .setDescription(`\`⏭\` | *Adelantado:* \`${value}\`seg`)
             .setColor(client.color);
 
         interaction.editReply({ embeds: [embed] });

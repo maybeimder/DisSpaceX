@@ -36,6 +36,7 @@ class MainClient extends Client {
 
     this.distube = new DisTube(client, {
         savePreviousSongs: true,
+        emitNewSongOnly: true,
         emitAddListWhenCreatingQueue: true,
         emitAddSongWhenCreatingQueue: true,
         plugins: [

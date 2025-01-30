@@ -2,12 +2,12 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
     name: ["music", "volume"],
-    description: "Adjusts the volume of the bot.",
+    description: "Subeme la radio",
     category: "Music",
     options: [
         {
             name: "amount",
-            description: "The amount of volume to set the bot to.",
+            description: "Cuanto de volumen",
             type: ApplicationCommandOptionType.Integer,
             required: false,
         }
@@ -18,25 +18,25 @@ module.exports = {
         const volume = interaction.options.getInteger("amount");
 
         const queue = client.distube.getQueue(interaction);
-        if (!queue) return interaction.editReply(`There is nothing in the queue right now!`);
+        if (!queue) return interaction.editReply(`[🦙] No hay na en la cola`);
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("Teni que estar en el mismo canal de vo")
 
         if (!volume) {
             const embed = new EmbedBuilder()
                 .setColor(client.color)
-                .setDescription(`Current **volume** : \`${queue.volume}\`%`)
+                .setDescription(`Volumen actual: **volume** : \`${queue.volume}\`%`)
 
             return interaction.editReply({ embeds: [embed] });
         }
 
-        if (volume < 1 || volume > 100) return interaction.editReply(`Please provide a number between 1 and 100`)
+        if (volume < 1 || volume > 100) return interaction.editReply(`[🦙] Hey hey, es entre 1 y 100`)
 
         await client.distube.setVolume(interaction, volume);
 
         const embed = new EmbedBuilder()
             .setColor(client.color)
-            .setDescription(`\`🔊\` | **Change volume to:** \`${volume}\`%`)
+            .setDescription(`\`🔊\` | **Cambié el volumen a:** \`${volume}\`%`)
 
         interaction.editReply({ embeds: [embed] });
     }

@@ -6,7 +6,7 @@ module.exports = {
     EMBED_COLOR: process.env.EMBED_COLOR || "#000001", // embed message color!
 
     // Default autocomplete search
-    SEARCH_DEFAULT: ["lo fi", "jvke", "post malone", "bassboost"],
+    SEARCH_DEFAULT: ["bad bunny", "sabrina carpenter", "stray kids", "feid"],
     // Leave voice empty
     LEAVE_EMPTY: parseInt(process.env.LEAVE_EMPTY || "120000"), // 1000 = 1 sec
 

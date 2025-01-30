@@ -6,13 +6,13 @@ const GSetup = new Database("./settings/models/setup.json", { databaseInObject: 
 
 module.exports = {
     name: ["music", "searchtop"],
-    description: "Search and queue song to the top.",
+    description: "Busca y pon la cancion hasta arriba de la cola",
     category: "Music",
     options: [
         {
             name: "search",
             type: ApplicationCommandOptionType.String,
-            description: "The song to play.",
+            description: "la cancion po",
             required: true
         }
     ],
@@ -20,17 +20,17 @@ module.exports = {
         const string = interaction.options.getString("search");
 
         const db = await GSetup.get(interaction.guild.id);
-        if (db.setup_enable === true) return interaction.reply("Command is disable already have song request channel!");
+        if (db.setup_enable === true) return interaction.reply("queeee");
 
-        await interaction.reply(`🔍 **Searching...** \`${string}\``);
+        await interaction.reply(`🔍 **Buscandooo...** \`${string}\``);
 
         const message = await interaction.fetchReply();
         await client.createPlay(interaction, message.id);
 
         const { channel } = interaction.member.voice;
-        if (!channel) return interaction.editReply("You need to be in voice channel.")
-        if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Connect)) return interaction.editReply(`I don't have perm \`CONNECT\` in ${channel.name} to join voice!`);
-        if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Speak)) return interaction.editReply(`I don't have perm \`SPEAK\` in ${channel.name} to join voice!`);
+        if (!channel) return interaction.editReply("Teni' que estar en un canal de voz.")
+        if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Connect)) return interaction.editReply(`[🦙] No me puedo \`CONNECT\` a ${channel.name}`);
+        if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Speak)) return interaction.editReply(`[🦙] No puedo \`SPEAK\` en ${channel.name}`);
 
         const row = new  ActionRowBuilder()
         .addComponents(
@@ -77,10 +77,10 @@ module.exports = {
         const result = res.items.slice(0, 5).map(x => `**(${index++}.) [${x.name}](${x.url})** Author: \`${x.author}\``).join("\n")
 
         const embed = new EmbedBuilder()
-            .setAuthor({ name: `Song Selection...`, iconURL: interaction.guild.iconURL({ dynamic: true }) })
+            .setAuthor({ name: `Selector de cancioneee...`, iconURL: interaction.guild.iconURL({ dynamic: true }) })
             .setColor(client.color)
             .setDescription(result)
-            .setFooter({ text: `Please response in 30s` })
+            .setFooter({ text: `No tengo todo el dia asi que dale rapido` })
 
         await message.edit({ content: " ", embeds: [embed], components: [row] });
 
@@ -89,7 +89,7 @@ module.exports = {
         collector.on('collect', async (interaction) => {
             const id = interaction.customId;
             const loader = new EmbedBuilder()
-                .setDescription("**Loading please wait....**")
+            .setDescription("**Cargando, perate...**")
 
 
             if(id === "one") {
@@ -112,7 +112,7 @@ module.exports = {
 
         collector.on('end', async (collected, reason) => {
             if(reason === "time") {
-                message.edit({ content: `No Response`, embeds: [], components: [] });
+                message.edit({ content: `[🦙] No respondiste pue, mandas cáscara`, embeds: [], components: [] });
             }
         });
     }

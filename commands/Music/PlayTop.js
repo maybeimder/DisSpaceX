@@ -5,13 +5,13 @@ const GSetup = new Database("./settings/models/setup.json", { databaseInObject: 
 
 module.exports = {
     name: ["music", "playtop"],
-    description: "Queue song to the top!",
+    description: "Pon la cancion arriba del todo pue",
     category: "Music",
     options: [
         {
             name: "search",
             type: ApplicationCommandOptionType.String,
-            description: "The song to play.",
+            description: "Que le pongo mi rey/na",
             required: true,
             autocomplete: true
         }
@@ -20,7 +20,7 @@ module.exports = {
         try {
             if (interaction.options.getString("search")) {
                 const db = await GSetup.get(interaction.guild.id);
-                if (db.setup_enable === true) return interaction.reply("Command is disable already have song request channel!");
+                if (db.setup_enable === true) return interaction.reply("qe");
 
                 await interaction.reply(`🔍 **Searching...** \`${interaction.options.getString("search")}\``);
 
@@ -28,9 +28,10 @@ module.exports = {
                 await client.createPlay(interaction, message.id);
 
                 const { channel } = interaction.member.voice;
-                if (!channel) return interaction.editReply("You need to be in voice channel.")
-                if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Connect)) return interaction.editReply(`I don't have perm \`CONNECT\` in ${channel.name} to join voice!`);
-                if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Speak)) return interaction.editReply(`I don't have perm \`SPEAK\` in ${channel.name} to join voice!`);
+                if (!channel) return interaction.editReply("Teni' que estar en un canal de voz.")
+                if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Connect)) return interaction.editReply(`[🦙] No me puedo \`CONNECT\` a ${channel.name}`);
+                if (!channel.permissionsFor(interaction.guild.members.me).has(PermissionsBitField.Flags.Speak)) return interaction.editReply(`[🦙] No puedo \`SPEAK\` en ${channel.name}`);
+    
 
                 try {
                     const string = interaction.options.getString("search");

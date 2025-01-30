@@ -2,18 +2,18 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
     name: ["music", "move"],
-    description: "Move position song in queue!",
+    description: "Reacomoda la lista de reproduccion",
     category: "Music",
     options: [
         {
             name: "queue",
-            description: "The queue of the song",
+            description: "El numerito de la cancion",
             type: ApplicationCommandOptionType.Integer,
             required: true,
         },
         {
             name: "position",
-            description: "The position in queue want to move too.",
+            description: "A que posicion",
             type: ApplicationCommandOptionType.Integer,
             required: true,
         }
@@ -25,14 +25,14 @@ module.exports = {
         const position = interaction.options.getInteger("position");
 
         const queue = client.distube.getQueue(interaction);
-        if (!queue) return interaction.editReply(`There is nothing in the queue right now!`);
+        if (!queue) return interaction.editReply(`[🦙] No hay na en la cola`);
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("Teni que estar en el mismo canal de vo")
 
-        if (tracks == 0) return interaction.editReply(`Cannot move a song already playing.`);
-        if (position == 0) return interaction.editReply(`Cannot move to this position a song already playing.`);
-        if (tracks > queue.songs.length) return interaction.editReply(`Queue | Song not found.`);
-        if (position > queue.songs.length) return interaction.editReply(`Position | Song not found.`);
+        if (tracks == 0) return interaction.editReply(`[🦙] Mandas cáscara, esa ya está sonando`);
+        if (position == 0) return interaction.editReply(`[🦙] Mandas cáscara, esa ya está sonando`);
+        if (tracks > queue.songs.length) return interaction.editReply(`[🦙] No vi esa canción en la cola`);
+        if (position > queue.songs.length) return interaction.editReply(`[🦙] No la puedo poner en esa posicion`);
 
         const song = queue.songs[tracks];
 
@@ -40,7 +40,7 @@ module.exports = {
         await queue.addToQueue(song, position);
 
         const embed = new EmbedBuilder()
-            .setDescription(`**Moved • [${song.name}](${song.url})** to ${position}`)
+            .setDescription(`**Se moviió • [${song.name}](${song.url})** a ${position}`)
             .setColor(client.color)
 
         interaction.editReply({ embeds: [embed] });

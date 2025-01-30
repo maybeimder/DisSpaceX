@@ -5,13 +5,13 @@ const GVoice = new Database("./settings/models/voice.json", { databaseInObject: 
 
 module.exports = {
     name: ["music", "247"],
-    description: "24/7 in voice channel",
+    description: "24/7 dando caleta, lo activas?",
     category: "Music",
     run: async (client, interaction) => {
         await interaction.deferReply({ ephemeral: false });
         
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("Teni que estar en el mismo cana de vo")
 
         const db = await GVoice.get(interaction.guild.id);
 
@@ -19,7 +19,7 @@ module.exports = {
             await client.createDVoice(interaction);
 
             const embed = new EmbedBuilder()
-                .setDescription(`\`🌙\` | *Mode 24/7 has been:* \`Deactivated\``)
+                .setDescription(`\`🌙\` | *[🦙] 24/7 no estoy* \`Deactivated\``)
                 .setColor(client.color);
 
             interaction.editReply({ embeds: [embed] });
@@ -27,7 +27,7 @@ module.exports = {
             await client.createEVoice(interaction);
 
             const embed = new EmbedBuilder()
-                .setDescription(`\`🌕\` | *Mode 24/7 has been:* \`Activated\``)
+                .setDescription(`\`🌕\` | *[🦙] 24/7 beibi:* \`Activated\``)
                 .setColor(client.color);
 
             interaction.editReply({ embeds: [embed] });

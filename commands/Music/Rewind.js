@@ -2,12 +2,12 @@ const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
     name: ["music", "rewind"],
-    description: "Rewind timestamp in the song!",
+    description: "Atrasa la cancion unos segundos",
     category: "Music",
     options: [
         {
             name: "seconds",
-            description: "The number of seconds to rewind the timestamp by.",
+            description: "Cuantos segundos ps",
             type: ApplicationCommandOptionType.Integer,
             required: false
         }
@@ -18,9 +18,9 @@ module.exports = {
         const value = interaction.options.getInteger("seconds");
             
         const queue = client.distube.getQueue(interaction);
-        if (!queue) return interaction.editReply(`There is nothing in the queue right now!`);
+        if (!queue) return interaction.editReply(`[🦙] No hay na en la cola`);
         const { channel } = interaction.member.voice;
-        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("You need to be in a same/voice channel.")
+        if (!channel || interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return interaction.editReply("Teni que estar en el mismo canal de vo")
 
         if (!value) {
             if((queue.currentTime - 10) > 0) {
@@ -28,26 +28,26 @@ module.exports = {
                 await queue.seek(queue.currentTime - 10);
                 
                 const embed = new EmbedBuilder()
-                    .setDescription(`\`⏮\` | *Rewind to:* \`${queue.formattedCurrentTime}\``)
+                    .setDescription(`\`⏮\` | *Devuelto a:* \`${queue.formattedCurrentTime}\``)
                     .setColor(client.color);
 
                 interaction.editReply({ embeds: [embed] });
 
             } else {
-                interaction.editReply(`Cannot rewind beyond the song's duration.`);
+                interaction.editReply(`[🦙] Don comedia`);
             }
         } else if ((queue.currentTime - value) > 0) {
 
             await queue.seek(queue.currentTime - value);
             
             const embed = new EmbedBuilder()
-                .setDescription(`\`⏮\` | *Rewind to:* \`${queue.formattedCurrentTime}\``)
+                .setDescription(`\`⏮\` | *Devuelto a:* \`${queue.formattedCurrentTime}\``)
                 .setColor(client.color);
 
             interaction.editReply({ embeds: [embed] });
 
         } else { 
-            interaction.editReply(`Cannot rewind beyond the song's duration.`);
+            interaction.editReply(`[🦙] Te pasaste Carlito, te pasaste`);
         }
     }
 }

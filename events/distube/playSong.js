@@ -19,7 +19,7 @@ module.exports = async (client, queue, track) => {
   const filter = (message) => {
     if (message.guild.members.me.voice.channel && message.guild.members.me.voice.channelId === message.member.voice.channelId) return true;
     else {
-      message.reply({ content: "You need to be in a same/voice channel.", ephemeral: true });
+      message.reply({ content: "Teni que estar en el mismo canal de voz", ephemeral: true });
     }
   };
   const collector = nowplay.createMessageComponentCollector({ filter, time: 120000 });
@@ -34,15 +34,15 @@ module.exports = async (client, queue, track) => {
       if (queue.paused) {
         await client.distube.resume(message.guild.id);
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription(`\`⏯\` | **Song has been:** \`Resumed\``);
+          .setColor("#9659c0")
+          .setDescription(`\`⏯\` | **Ahi volvió la cancion: ** \`Resumed\``);
 
         message.reply({ embeds: [embed], ephemeral: true });
       } else {
         await client.distube.pause(message.guild.id);
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription(`\`⏯\` | **Song has been:** \`Paused\``);
+          .setColor("#9659c0")
+          .setDescription(`\`⏯\` | \`Pausando\``);
 
         message.reply({ embeds: [embed], ephemeral: true });
       }
@@ -52,15 +52,15 @@ module.exports = async (client, queue, track) => {
       }
       if (queue.songs.length === 1 && queue.autoplay === false) {
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription("\`🚨\` | **There are no** `Songs` **in queue**")
+          .setColor("#9659c0")
+          .setDescription("\`🚨\` | **No hay mas** `Canciones` **En la cola**")
 
         message.reply({ embeds: [embed], ephemeral: true });
       } else {
         await client.distube.skip(message)
             const embed = new EmbedBuilder()
-              .setColor("#000001")
-              .setDescription("\`⏭\` | **Song has been:** `Skipped`")
+              .setColor("#9659c0")
+              .setDescription("\`⏭\` | ** \`Skippeando\` ** esta")
 
             nowplay.edit({ components: [] });
             message.reply({ embeds: [embed], ephemeral: true });
@@ -71,8 +71,8 @@ module.exports = async (client, queue, track) => {
       }
       await client.distube.voices.leave(message.guild);
       const embed = new EmbedBuilder()
-        .setDescription(`\`🚫\` | **Song has been:** | \`Stopped\``)
-        .setColor('#000001');
+        .setDescription(`\`🚫\` | **Ahi** | \`paró\``)
+        .setColor('#9659c0');
 
       await nowplay.edit({ components: [] });
       message.reply({ embeds: [embed], ephemeral: true });
@@ -83,15 +83,15 @@ module.exports = async (client, queue, track) => {
       if (queue.repeatMode === 0) {
         client.distube.setRepeatMode(message.guild.id, 1);
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription(`\`🔁\` | **Song is loop:** \`Current\``)
+          .setColor("#9659c0")
+          .setDescription(`\`🔁\` | **La canción ta en buclee:** \`Current\``)
 
         message.reply({ embeds: [embed], ephemeral: true });
       } else {
         client.distube.setRepeatMode(message.guild.id, 0);
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription(`\`🔁\` | **Song is unloop:** \`Current\``)
+          .setColor("#9659c0")
+          .setDescription(`\`🔁\` | **Ya no está en bucleee:** \`Current\``)
 
         message.reply({ embeds: [embed], ephemeral: true });
       }
@@ -101,15 +101,15 @@ module.exports = async (client, queue, track) => {
       }
       if (queue.previousSongs.length == 0) {
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription("\`🚨\` | **There are no** `Previous` **songs**")
+          .setColor("#9659c0")
+          .setDescription("\`🚨\` | **No hay canciones** `Antes`")
 
         message.reply({ embeds: [embed], ephemeral: true });
       } else {
         await client.distube.previous(message)
         const embed = new EmbedBuilder()
-          .setColor("#000001")
-          .setDescription("\`⏮\` | **Song has been:** `Previous`")
+          .setColor("#9659c0")
+          .setDescription("\`⏮\` | **Hemo vuelto a la** `Anterior`")
 
         await nowplay.edit({ components: [] });
         message.reply({ embeds: [embed], ephemeral: true });
@@ -121,7 +121,7 @@ module.exports = async (client, queue, track) => {
       await client.distube.shuffle(message);
       const embed = new EmbedBuilder()
           .setColor(client.color)
-          .setDescription(`\`🔀\` | **Song has been:** \`Shuffle\``);
+          .setDescription(`\`🔀\` | **Epa, canción mezclá por ahi** \`Shuffle\``);
 
       message.reply({ embeds: [embed], ephemeral: true });
     } else if (id === "voldown") {
@@ -131,7 +131,7 @@ module.exports = async (client, queue, track) => {
       await client.distube.setVolume(message, queue.volume - 5);
       const embed = new EmbedBuilder()
           .setColor(client.color)
-          .setDescription(`\`🔊\` | **Decrease volume to:** \`${queue.volume}\`%`)
+          .setDescription(`\`🔊\` | **Le bajo a ese toque** \`${queue.volume}\`%`)
 
       message.reply({ embeds: [embed], ephemeral: true });
     } else if (id === "clear") {
@@ -142,7 +142,7 @@ module.exports = async (client, queue, track) => {
       await client.UpdateQueueMsg(queue);
       
       const embed = new EmbedBuilder()
-          .setDescription(`\`📛\` | **Queue has been:** \`Cleared\``)
+          .setDescription(`\`📛\` | **La cola se  ha ** \`Limpiado\``)
           .setColor(client.color);
 
       message.reply({ embeds: [embed], ephemeral: true });
@@ -153,7 +153,7 @@ module.exports = async (client, queue, track) => {
       await client.distube.setVolume(message, queue.volume + 5);
       const embed = new EmbedBuilder()
           .setColor(client.color)
-          .setDescription(`\`🔊\` | **Increase volume to:** \`${queue.volume}\`%`)
+          .setDescription(`\`🔊\` | **Subiendole a la radio a ** \`${queue.volume}\`%`)
 
       message.reply({ embeds: [embed], ephemeral: true });
     } else if (id === "queue") {
@@ -175,11 +175,11 @@ module.exports = async (client, queue, track) => {
       for (let i = 0; i < pagesNum; i++) {
         const str = songStrings.slice(i * 10, i * 10 + 10).join('');
         const embed = new EmbedBuilder()
-          .setAuthor({ name: `Queue - ${message.guild.name}`, iconURL: message.guild.iconURL({ dynamic: true })})
+          .setAuthor({ name: `Lista de reproducción - ${message.guild.name}`, iconURL: message.guild.iconURL({ dynamic: true })})
           .setThumbnail(queue.songs[0].thumbnail || client.user.displayAvatarURL())
           .setColor(client.color)
-          .setDescription(`**Currently Playing:**\n**[${queue.songs[0].name}](${queue.songs[0].url})** \`[${queue.songs[0].formattedDuration}]\` • ${queue.songs[0].user}\n\n**Rest of queue**${str == '' ? '  Nothing' : '\n' + str }`)
-          .setFooter({ text: `Page • ${i + 1}/${pagesNum} | ${queue.songs.length} • Songs | ${queue.formattedDuration} • Total duration`});
+          .setDescription(`**Ahorita ta sonando:**\n**[${queue.songs[0].name}](${queue.songs[0].url})** \`[${queue.songs[0].formattedDuration}]\` • ${queue.songs[0].user}\n\n**Va a sonar:**${str == '' ? '  Nada' : '\n' + str }`)
+          .setFooter({ text: `Página • ${i + 1}/${pagesNum} | ${queue.songs.length} • Canciones | ${queue.formattedDuration} • Duración total`});
         
         pages.push(embed);
       };
@@ -198,45 +198,43 @@ module.exports = async (client, queue, track) => {
 
 function disspace(nowQueue, nowTrack, client) {
   const embed = new EmbedBuilder()
-    .setAuthor({ name: `Starting Playing...`, iconURL: 'https://cdn.discordapp.com/emojis/741605543046807626.gif' })
+    .setAuthor({ name: `Empezó a sonaaaaar...`, iconURL: 'https://cdn.discordapp.com/emojis/741605543046807626.gif' })
     .setThumbnail(nowTrack.thumbnail || client.user.displayAvatarURL())
-    .setColor('#000001')
+    .setColor('#9659c0')
     .setDescription(`**[${nowTrack.name}](${nowTrack.url})**`)
-    .addFields({ name: `Uploader:`, value: `**[${nowTrack.uploader.name || "Anonymous"}](${nowTrack.uploader.url || "https://www.github.com/Adivise"})**`, inline: true })
-    .addFields({ name: `Requester:`, value: `${nowTrack.user}`, inline: true })
-    .addFields({ name: `Current Volume:`, value: `${nowQueue.volume}%`, inline: true })
-    .addFields({ name: `Filters:`, value: `${nowQueue.filters.names.join(", ") || "Normal"}`, inline: true })
+    .addFields({ name: `Artista:`, value: `**[${nowTrack.uploader.name || "Anonymous"}](${nowTrack.uploader.url || ""})**`, inline: true })
+    .addFields({ name: `Puesta por:`, value: `${nowTrack.user}`, inline: true })
+    .addFields({ name: `Volumen Actual:`, value: `${nowQueue.volume}%`, inline: true })
     .addFields({ name: `Autoplay:`, value: `${nowQueue.autoplay ? "Activated" : "Not Active"}`, inline: true })
-    .addFields({ name: `Total Duration:`, value: `${nowQueue.formattedDuration}`, inline: true })
-    .addFields({ name: `Current Duration: \`[0:00 / ${nowTrack.formattedDuration}]\``, value:`\`\`\`🔴 | 🎶──────────────────────────────\`\`\``, inline: false })
+    .addFields({ name: `Duracion Total:`, value: `${nowQueue.formattedDuration}`, inline: true })
     .setTimestamp()
 
   const row = new ActionRowBuilder()
     .addComponents(
       new ButtonBuilder()
-        .setCustomId("pause")
-        .setLabel(`Pause`)
-        .setEmoji("⏯")
-        .setStyle(ButtonStyle.Success)
+      .setCustomId("stop")
+      .setLabel(`Quitar`)
+      .setEmoji("✖")
+      .setStyle(ButtonStyle.Primary)
     )
     .addComponents(
       new ButtonBuilder()
         .setCustomId("previous")
-        .setLabel(`Previous`)
+        .setLabel(`Anterior`)
         .setEmoji("⬅")
         .setStyle(ButtonStyle.Primary)
     )
     .addComponents(
       new ButtonBuilder()
-        .setCustomId("stop")
-        .setLabel(`Stop`)
-        .setEmoji("✖")
-        .setStyle(ButtonStyle.Danger)
+      .setCustomId("pause")
+      .setLabel(`Pausar`)
+      .setEmoji("⏯")
+      .setStyle(ButtonStyle.Danger)
     )
     .addComponents(
       new ButtonBuilder()
         .setCustomId("skip")
-        .setLabel(`Skip`)
+        .setLabel(`Saltar`)
         .setEmoji("➡")
         .setStyle(ButtonStyle.Primary)
     )
@@ -266,7 +264,7 @@ function disspace(nowQueue, nowTrack, client) {
     .addComponents(
       new ButtonBuilder()
         .setCustomId("clear")
-        .setLabel(`Clear`)
+        .setLabel(`Limpiar`)
         .setEmoji(`🗑`)
         .setStyle(ButtonStyle.Secondary)
     )
@@ -280,7 +278,7 @@ function disspace(nowQueue, nowTrack, client) {
     .addComponents(
       new ButtonBuilder()
         .setCustomId("queue")
-        .setLabel(`Queue`)
+        .setLabel(`Cola`)
         .setEmoji(`📋`)
         .setStyle(ButtonStyle.Primary)
     )

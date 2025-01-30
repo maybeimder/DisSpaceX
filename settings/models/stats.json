@@ -1,1 +1,13 @@
-{}
+{
+    "play": 92,
+    "queue": 5,
+    "search": 4,
+    "help": 1,
+    "skip": 3,
+    "previous": 1,
+    "remove": 1,
+    "resume": 1,
+    "pause": 1,
+    "playskip": 1,
+    "lyric": 7
+}

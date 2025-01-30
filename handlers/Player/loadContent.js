@@ -23,17 +23,17 @@ try {
                 case "sprevious":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else if (queue.previousSongs.length == 0) {
-                            interaction.reply("\`🚨\` | **There are no** `Previous` **songs**");
+                            interaction.reply("\`🚨\` | **No hay canciones** `Previous`");
                         } else {
                             await client.distube.previous(interaction);
                             const embed = new EmbedBuilder()
-                                .setDescription("\`⏮\` | **Song has been:** `Previous`")
+                                .setDescription("\`⏮\` | **La cancion ha vuelto a ** `Previous`")
                                 .setColor(client.color);
 
                             interaction.reply({ embeds: [embed] });
@@ -44,22 +44,22 @@ try {
                 case "sskip":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else if (queue.songs.length === 1 && queue.autoplay === false) {
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription("\`🚨\` | **There are no** `Songs` **in queue**")
+                                .setColor("#9659c0")
+                                .setDescription("\`🚨\` | **No hay ** `Songs` ** en la cola **")
                 
                             interaction.reply({ embeds: [embed] });
                         } else { 
                             await client.distube.skip(interaction);
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription("\`⏭\` | **Song has been:** `Skipped`")
+                                .setColor("#9659c0")
+                                .setDescription("\`⏭\` | **La cancion ha sido** `Skipped`")
                 
                             interaction.reply({ embeds: [embed] });
                         }
@@ -69,11 +69,11 @@ try {
                 case "sstop":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             await client.distube.stop(interaction);
                             await client.distube.voices.leave(interaction.guild);
@@ -81,8 +81,8 @@ try {
                             const memberVoice = interaction.member.voice.channel;
                 
                             const embed = new EmbedBuilder()
-                                .setDescription(`\`🚫\` | **Left:** | \`${memberVoice.name}\``)
-                                .setColor('#000001')
+                                .setDescription(`\`🚫\` | **Se salió ** | \`${memberVoice.name}\``)
+                                .setColor('#9659c0')
                 
                             interaction.reply({ embeds : [embed] });
                             client.UpdateMusic(queue);
@@ -93,17 +93,17 @@ try {
                 case "spause":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else if (queue.paused) {
                             await client.distube.resume(interaction);
 
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription(`\`⏯\` | **Song has been:** \`Resumed\``);
+                                .setColor("#9659c0")
+                                .setDescription(`\`⏯\` | **Ha regresao la cancion:** \`Resumed\``);
                 
                             interaction.reply({ embeds: [embed] });
                             client.UpdateQueueMsg(queue);
@@ -111,8 +111,8 @@ try {
                             await client.distube.pause(interaction);
 
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription(`\`⏯\` | **Song has been:** \`Paused\``);
+                                .setColor("#9659c0")
+                                .setDescription(`\`⏯\` | **Se ha pausao la cancion:** \`Paused\``);
                 
                             interaction.reply({ embeds: [embed] });
                             client.UpdateQueueMsg(queue);
@@ -123,25 +123,25 @@ try {
                 case "sloop":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else if (queue.repeatMode === 2) {
                             await client.distube.setRepeatMode(interaction, 0);
                 
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription(`\`🔁\` | **Song is unloop:** \`All\``)
+                                .setColor("#9659c0")
+                                .setDescription(`\`🔁\` | **Epa, le quite el loop** \`All\``)
                 
                             interaction.reply({ embeds: [embed] });
                         } else {
                             await client.distube.setRepeatMode(interaction, 2);
                             
                             const embed = new EmbedBuilder()
-                                .setColor("#000001")
-                                .setDescription(`\`🔁\` | **Song is loop:** \`All\``)
+                                .setColor("#9659c0")
+                                .setDescription(`\`🔁\` | **Epa, le puse el loop** \`All\``)
                 
                             interaction.reply({ embeds: [embed] });
                         }
@@ -151,17 +151,17 @@ try {
                 case "sshuffle":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             await client.distube.shuffle(interaction);
 
                             const embed = new EmbedBuilder()
                                 .setColor(client.color)
-                                .setDescription(`\`🔀\` | **Song has been:** \`Shuffle\``);
+                                .setDescription(`\`🔀\` | **La cancion se ha mezclao por ahi** \`Shuffle\``);
 
                             interaction.reply({ embeds: [embed] });
                             client.UpdateQueueMsg(queue);
@@ -172,17 +172,17 @@ try {
                 case "svoldown":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             await client.distube.setVolume(interaction, queue.volume - 10);
 
                             const embed = new EmbedBuilder()
                                 .setColor(client.color)
-                                .setDescription(`\`🔊\` | **Decrease volume to:** \`${queue.volume}\`%`)
+                                .setDescription(`\`🔊\` | **Bájandole el volumen a ** \`${queue.volume}\`%`)
                       
                             interaction.reply({ embeds: [embed] });
                             client.UpdateQueueMsg(queue);
@@ -193,16 +193,16 @@ try {
                 case "sclear":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             await queue.songs.splice(1, queue.songs.length);
                             
                             const embed = new EmbedBuilder()
-                                .setDescription(`\`📛\` | **Queue has been:** \`Cleared\``)
+                                .setDescription(`\`📛\` | **Se ha vaciao la cola ** \`Cleared\``)
                                 .setColor(client.color);
                 
                             interaction.reply({ embeds: [embed] });
@@ -214,17 +214,17 @@ try {
                 case "svolup":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             await client.distube.setVolume(interaction, queue.volume + 10);
 
                             const embed = new EmbedBuilder()
                                 .setColor(client.color)
-                                .setDescription(`\`🔊\` | **Increase volume to:** \`${queue.volume}\`%`)
+                                .setDescription(`\`🔊\` | **Aumenta el volumen hasta:** \`${queue.volume}\`%`)
                       
                             interaction.reply({ embeds: [embed] });
                             client.UpdateQueueMsg(queue);
@@ -235,11 +235,11 @@ try {
                 case "squeue":
                     {
                         if (!channel) { 
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (interaction.guild.members.me.voice.channel && !interaction.guild.members.me.voice.channel.equals(channel)) {
-                            return interaction.reply(`You need to be in a voice channel.`);
+                            return interaction.reply(`Necesitas estar en un canal de voz`);
                         } else if (!queue) {
-                            return interaction.reply(`There is nothing in the queue right now!`);
+                            return interaction.reply(`No hay nada en la cola ahora mismo`);
                         } else {
                             const pagesNum = Math.ceil(queue.songs.length / 10);
                             if(pagesNum === 0) pagesNum = 1;
@@ -256,11 +256,11 @@ try {
                             for (let i = 0; i < pagesNum; i++) {
                             const str = songStrings.slice(i * 10, i * 10 + 10).join('');
                             const embed = new EmbedBuilder()
-                                .setAuthor({ name: `Queue - ${interaction.guild.name}`, iconURL: interaction.guild.iconURL({ dynamic: true })})
+                                .setAuthor({ name: `Cola de reproducción - ${interaction.guild.name}`, iconURL: interaction.guild.iconURL({ dynamic: true })})
                                 .setThumbnail(queue.songs[0].thumbnail)
                                 .setColor(client.color)
-                                .setDescription(`**Currently Playing:**\n**[${queue.songs[0].name}](${queue.songs[0].url})** \`[${queue.songs[0].formattedDuration}]\` • ${queue.songs[0].user}\n\n**Rest of queue**${str == '' ? '  Nothing' : '\n' + str }`)
-                                .setFooter({ text: `Page • ${i + 1}/${pagesNum} | ${queue.songs.length} • Songs | ${queue.formattedDuration} • Total duration`});
+                                .setDescription(`**Sonando ahora mismo**\n**[${queue.songs[0].name}](${queue.songs[0].url})** \`[${queue.songs[0].formattedDuration}]\` • ${queue.songs[0].user}\n\n**Resto de la cola**${str == '' ? '  Nada' : '\n' + str }`)
+                                .setFooter({ text: `Página • ${i + 1}/${pagesNum} | ${queue.songs.length} • Canciones | ${queue.formattedDuration} • Duración total`});
                             
                                 pages.push(embed);
                             };
@@ -302,7 +302,7 @@ client.on("messageCreate", async (message) => {
         await message.delete();
 
         const voiceChannel = await message.member.voice.channel;
-        if (!voiceChannel) return message.channel.send(`You need to be in a voice channel.`).then((msg) => { 
+        if (!voiceChannel) return message.channel.send(`Necesitas estar en un canal de voz`).then((msg) => { 
             setTimeout(() => {
                 msg.delete()
             }, 4000);
